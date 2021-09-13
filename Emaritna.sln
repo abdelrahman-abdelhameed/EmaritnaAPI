@@ -11,9 +11,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{4E6FF5BC-3C0
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emaritna.DAL", "Emaritna.DAL\Emaritna.DAL.csproj", "{0EC7F45F-9B26-4BD6-8675-24C661F71CBE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emaritna.API", "PatientCare.API\Emaritna.API.csproj", "{071A5525-6027-43B7-B2A9-BFABFF565327}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emaritna.API", "Emaritna.API\Emaritna.API.csproj", "{071A5525-6027-43B7-B2A9-BFABFF565327}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersManagement.Bll", "UsersManagement\UsersManagement.Bll.csproj", "{7FD8F2F7-EDE7-493D-AAE3-F60836AFC2B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersManagement.Bll", "UsersManagement.Bll\UsersManagement.Bll.csproj", "{7FD8F2F7-EDE7-493D-AAE3-F60836AFC2B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,27 +51,27 @@ Global
 		SccTeamFoundationServer = https://abdelrahmanabdelhameed.visualstudio.com/
 		SccLocalPath0 = .
 		SccProjectUniqueName1 = ClinicManagment.Bll\\ClinicManagement.Bll.csproj
-		SccProjectTopLevelParentUniqueName1 = PatientCare.sln
+		SccProjectTopLevelParentUniqueName1 = Emaritna.sln
 		SccProjectName1 = ClinicManagment.Bll
 		SccLocalPath1 = ClinicManagment.Bll
-		SccProjectUniqueName2 = PatientCare.API\\PatientCare.API.csproj
-		SccProjectTopLevelParentUniqueName2 = PatientCare.sln
-		SccProjectName2 = PatientCare.API
-		SccLocalPath2 = PatientCare.API
-		SccProjectUniqueName3 = PatientCare.DAL\\PatientCare.DAL.csproj
-		SccProjectTopLevelParentUniqueName3 = PatientCare.sln
-		SccProjectName3 = PatientCare.DAL
-		SccLocalPath3 = PatientCare.DAL
+		SccProjectUniqueName2 = Emaritna.API\\Emaritna.API.csproj
+		SccProjectTopLevelParentUniqueName2 = Emaritna.sln
+		SccProjectName2 = Emaritna.API
+		SccLocalPath2 = Emaritna.API
+		SccProjectUniqueName3 = Emaritna.DAL\\Emaritna.DAL.csproj
+		SccProjectTopLevelParentUniqueName3 = Emaritna.sln
+		SccProjectName3 = Emaritna.DAL
+		SccLocalPath3 = Emaritna.DAL
 		SccProjectUniqueName4 = Emaritna.Bll\\Emaritna.Bll.csproj
-		SccProjectTopLevelParentUniqueName4 = PatientCare.sln
+		SccProjectTopLevelParentUniqueName4 = Emaritna.sln
 		SccProjectName4 = Emaritna.Bll
 		SccLocalPath4 = Emaritna.Bll
-		SccProjectUniqueName5 = PatientCare.Commons\\PatientCare.Commons.csproj
-		SccProjectTopLevelParentUniqueName5 = PatientCare.sln
-		SccProjectName5 = PatientCare.Commons
-		SccLocalPath5 = PatientCare.Commons
-		SccProjectUniqueName6 = UsersManagement\\UsersManagement.Bll.csproj
-		SccProjectTopLevelParentUniqueName6 = PatientCare.sln
+		SccProjectUniqueName5 = Emaritna.Commons\\Emaritna.Commons.csproj
+		SccProjectTopLevelParentUniqueName5 = Emaritna.sln
+		SccProjectName5 = Emaritna.Commons
+		SccLocalPath5 = Emaritna.Commons
+		SccProjectUniqueName6 = UsersManagement.Bll\\UsersManagement.Bll.csproj
+		SccProjectTopLevelParentUniqueName6 = Emaritna.sln
 		SccProjectName6 = UsersManagement
 		SccLocalPath6 = UsersManagement
 	EndGlobalSection

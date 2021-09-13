@@ -24,7 +24,7 @@ using UsersManagement.Bll.IServices;
 using UsersManagement.Bll.Services;
 using UsersManagement.Bll.DTO;
 
-namespace PatientCare.API
+namespace Emaritna.API
 {
     public class Startup
     {
@@ -54,7 +54,7 @@ namespace PatientCare.API
             #region Swagger 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Patient Care Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Emaritna Api", Version = "v1" });
 
             });
             #endregion
@@ -123,7 +123,7 @@ namespace PatientCare.API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Patient Care Api");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Emaritna Api");
             });
 
             if (env.IsDevelopment())

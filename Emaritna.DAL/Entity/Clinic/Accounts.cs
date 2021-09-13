@@ -34,14 +34,7 @@ namespace Emaritna.DAL.Entity.Clinic
         [MaxLength(50)]
         public string Mobile2 { get; set; }
 
-        public Nullable<int> CityID { get; set; } // will add by suber admin 
-
-        public Nullable<long> ParentID { get; set; }
-
-
-        [MaxLength(150)]
-        public string DomainName { get; set; }
-
+ 
 
         public Nullable<int> PlanID { get; set; } // will add to parent clinic only 
 
