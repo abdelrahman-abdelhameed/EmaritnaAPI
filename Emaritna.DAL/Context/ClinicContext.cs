@@ -4,13 +4,14 @@ using Emaritna.DAL.Entity.Users;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.EntityFrameworkCore.Design;
 
 namespace Emaritna.DAL.Context
 {
-    public class ClinicContext : IdentityDbContext<ApplicationUser>
+    public class EmaritnaContext : IdentityDbContext<ApplicationUser>
     {
 
-        public ClinicContext(DbContextOptions<ClinicContext> options)
+        public EmaritnaContext(DbContextOptions<EmaritnaContext> options)
             :base(options)
         {
 
@@ -21,6 +22,19 @@ namespace Emaritna.DAL.Context
             modelBuilder.HasDefaultSchema("dbo");
             
             base.OnModelCreating(modelBuilder);
+        }
+
+    }
+
+      public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<EmaritnaContext>
+    {
+        public EmaritnaContext CreateDbContext(string[] args)
+        {
+
+            var builder = new DbContextOptionsBuilder<EmaritnaContext>();
+             var connectionString = "Data Source=localhost;Initial Catalog=Emaritna;User Id=sa;Password=!2456Avd;";
+            builder.UseSqlServer(connectionString);
+            return new EmaritnaContext(builder.Options);
         }
     }
 }

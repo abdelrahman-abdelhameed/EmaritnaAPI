@@ -45,7 +45,7 @@ namespace UsersManagement.Bll.Services
                 Email = _DataObj.Email,
                 PhoneNumber = _DataObj.PhoneNumber,
                 FullName = _DataObj.FullName,
-                AccountID = _DataObj.AccountID,
+               
                 
             };
 

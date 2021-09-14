@@ -13,10 +13,10 @@ namespace Emaritna.DAL.Repository
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
 
-        private ClinicContext context;
+        private EmaritnaContext context;
         private DbSet<TEntity> dbSet;
 
-        public GenericRepository(ClinicContext _context)
+        public GenericRepository(EmaritnaContext _context)
         {
             this.context = _context;
             this.dbSet = context.Set<TEntity>();

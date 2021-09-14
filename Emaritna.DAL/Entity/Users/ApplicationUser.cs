@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Emaritna.DAL.Entity.Clinic;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,13 +9,19 @@ namespace Emaritna.DAL.Entity.Users
 {
     public class ApplicationUser :IdentityUser
     {
-        public long AccountID { get; set; }
 
         [MaxLength(250)]
         public string FullName { get; set; }
 
-
-        [ForeignKey("AccountID")]
-        public Accounts Account { get; set; }
+        [MaxLength(10)]
+        public string ApartmentNumber { get; set; }
+        
+        public Nullable<byte> TowerSection { get; set; }
+        
+        public Nullable<int> FloorNumber { get; set; }
+        
+        [MaxLength(50)]
+        public string MobileNumber { get; set; }
+        
     }
 }

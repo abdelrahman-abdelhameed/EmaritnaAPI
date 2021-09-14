@@ -1,5 +1,5 @@
 ﻿using Emaritna.DAL.Context;
-using Emaritna.DAL.Entity.Clinic;
+ using Emaritna.DAL.Entity.Users;
 using Emaritna.DAL.IRepository;
 using Emaritna.DAL.Repository;
 using System;
@@ -10,23 +10,23 @@ namespace Emaritna.DAL.UnitOfWork
 {
     public class UnitOfWork : IUnitOfWork.IUnitOfWork, IDisposable
     {
-        private readonly ClinicContext _context;
-        private IGenericRepository<Accounts> _AccountsRepository;
+        private readonly EmaritnaContext _context;
+        private IGenericRepository<ApplicationUser> _ApplicationUserRepository;
 
          
         
 
-        public UnitOfWork(ClinicContext context)
+        public UnitOfWork(EmaritnaContext context)
         {
             _context = context;
         }
 
-        public IGenericRepository<Accounts> AccountsRepository
+        public IGenericRepository<ApplicationUser> ApplicationUserRepository
         {
             get
             {
-                return _AccountsRepository ?? (_AccountsRepository
-                  = new GenericRepository<Accounts>(_context));
+                return _ApplicationUserRepository ?? (_ApplicationUserRepository
+                  = new GenericRepository<ApplicationUser>(_context));
             }
         }
 

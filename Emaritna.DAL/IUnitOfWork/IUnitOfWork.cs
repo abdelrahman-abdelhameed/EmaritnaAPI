@@ -1,4 +1,4 @@
-﻿using Emaritna.DAL.Entity.Clinic;
+﻿using Emaritna.DAL.Entity.Users;
 using Emaritna.DAL.IRepository;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ namespace Emaritna.DAL.IUnitOfWork
     public interface IUnitOfWork
     {
 
-        IGenericRepository<Accounts> AccountsRepository { get; }
+        IGenericRepository<ApplicationUser> ApplicationUserRepository { get; }
         
         void Save();
 

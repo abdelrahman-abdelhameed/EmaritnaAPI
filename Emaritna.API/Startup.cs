@@ -41,14 +41,14 @@ namespace Emaritna.API
             services.AddControllers();
 
             #region Configer Database 
-            services.AddDbContext<ClinicContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ClinicConnection")));
+            services.AddDbContext<EmaritnaContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("EmaritnaConnection")));
 
             #endregion
 
             #region Idenity
             services.AddIdentity<ApplicationUser, IdentityRole>().
-                AddEntityFrameworkStores<ClinicContext>();
+                AddEntityFrameworkStores<EmaritnaContext>();
             #endregion
 
             #region Swagger 
@@ -144,7 +144,7 @@ namespace Emaritna.API
             #region Sure Of Data base 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<ClinicContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<EmaritnaContext>();
                 context.Database.Migrate();
             }
 
