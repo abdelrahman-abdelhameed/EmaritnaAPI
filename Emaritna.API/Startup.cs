@@ -23,6 +23,7 @@ using System.Text;
 using UsersManagement.Bll.IServices;
 using UsersManagement.Bll.Services;
 using UsersManagement.Bll.DTO;
+using Emaritna.DAL.DTO;
 
 namespace Emaritna.API
 {
@@ -86,6 +87,8 @@ namespace Emaritna.API
 
             #region Configer app setting from appseting.json to model 
             services.Configure<ApplicationSettingData>(Configuration.GetSection("ApplicationSettingData"));
+            services.Configure<DatabaseSetting>(Configuration.GetSection("ConnectionStrings"));
+
             #endregion
 
             string JWTKey = Configuration.GetSection("ApplicationSettingData").GetSection("JwtToken").Value;
@@ -108,7 +111,17 @@ namespace Emaritna.API
                 };
 
             });
+
+
+          //  services.AddAuthorization();
             #endregion
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                       .AllowAnyMethod().AllowAnyHeader());
+            });
 
         }
 
@@ -130,12 +143,14 @@ namespace Emaritna.API
             {
                 app.UseDeveloperExceptionPage();
             }
-           
 
+            app.UseCors("AllowSpecificOrigin");
             app.UseRouting();
 
-            app.UseAuthorization();
+            
             app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

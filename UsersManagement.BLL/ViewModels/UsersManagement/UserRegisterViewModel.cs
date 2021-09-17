@@ -27,11 +27,9 @@ namespace UsersManagement.Bll.ViewModels.UsersManagement
             ErrorMessage = "Password And Confirmation Password don't match")]
         public string ConfirmPassword { get; set; }
 
-        public long AccountID { get; set; }
 
         [Required(ErrorMessage = "Phone Number is Required")]
         public string PhoneNumber { get; set; }
 
-        public string [] Roles { get; set; }
     }
 }

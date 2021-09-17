@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Design;
+using Emaritna.DAL.DTO;
+using Microsoft.Extensions.Options;
 
 namespace Emaritna.DAL.Context
 {
@@ -28,6 +30,8 @@ namespace Emaritna.DAL.Context
 
       public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<EmaritnaContext>
     {
+
+       
         public EmaritnaContext CreateDbContext(string[] args)
         {
 

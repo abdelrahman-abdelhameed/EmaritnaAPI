@@ -12,6 +12,9 @@ using System.Text;
 using System.Threading.Tasks;
 using UsersManagement.Bll.IServices;
 using System.Linq;
+using UsersManagement.Bll.ViewModels.Authentication;
+//using System.Security.Principal;
+
 namespace UsersManagement.Bll.Services
 {
     public class UserAuthenticationService : IUserAuthenticationService
@@ -28,7 +31,7 @@ namespace UsersManagement.Bll.Services
         #region Constractor 
         public UserAuthenticationService(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IOptions<ApplicationSettingData> appSettings ,
+            IOptions<ApplicationSettingData> appSettings,
             IUserClaimsService userClaimsService)
         {
             this.userManager = userManager;
@@ -36,6 +39,8 @@ namespace UsersManagement.Bll.Services
             this.userClaimsService = userClaimsService;
             this.appSettings = appSettings.Value;
         }
+
+
         #endregion
 
         #region Login 
@@ -47,29 +52,31 @@ namespace UsersManagement.Bll.Services
         /// </summary>
         /// <param name="_DataObj"></param>
         /// <returns></returns>
-        public async Task<LoginResponseData> Login(LoginViewModel _DataObj)
+        public async Task<AuthenticationViewmodel> Login(LoginViewModel _DataObj)
         {
-            var Data = new LoginResponseData();
+            var Data = new AuthenticationViewmodel();
+
+
             var CheckUser = await userManager.FindByEmailAsync(_DataObj.UserName);
 
-            if (CheckUser != null)
+            if (CheckUser != null && CheckUser.IsActive)
             {
 
                 var result = await userManager.CheckPasswordAsync(CheckUser, _DataObj.Password);
 
                 if (result)
                 {
-                      
 
                     Data.ISSuccessful = result;
-                    Data.UserName = CheckUser.UserName;
-                    Data.AccessToken = await GenerateToken(CheckUser);
+
+                    Data.AuthToken = await GenerateToken(CheckUser);
+                    Data.ExpiresIn = DateTime.Now.AddDays(1);
 
                 }
                 else
                 {
                     Data.ISSuccessful = false;
-                    Data.ErrorMessage = "User Password Not Correct";
+                    Data.ErrorMessage = "كلمة المرور غير صحيحة";
                 }
 
 
@@ -77,7 +84,7 @@ namespace UsersManagement.Bll.Services
             else
             {
                 Data.ISSuccessful = false;
-                Data.ErrorMessage = "User Email Not Correct";
+                Data.ErrorMessage = "بيانات تسجيل الدخول غير صحيحه";
             }
 
 
@@ -91,8 +98,10 @@ namespace UsersManagement.Bll.Services
         private async Task<string> GenerateToken(ApplicationUser applicationUser)
         {
             var Roles = await userManager.GetRolesAsync(applicationUser);
+
             var Claims = await userClaimsService.GetUserClaims(applicationUser.Id);
-            var tokenHandler = new JwtSecurityTokenHandler();
+
+            // var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.UTF8.GetBytes(appSettings.JwtToken);
 
             var _claims = new List<Claim>
@@ -111,7 +120,7 @@ namespace UsersManagement.Bll.Services
             }
 
             // get User Claims 
-            foreach (var item in Claims.ReturnData.Claims.Where(a=>a.IsSelected).ToList())
+            foreach (var item in Claims.ReturnData.Claims.Where(a => a.IsSelected).ToList())
             {
                 _claims.Add(new Claim(ClaimTypes.WindowsUserClaim, item.ClaimType));
             }
@@ -126,12 +135,47 @@ namespace UsersManagement.Bll.Services
                     new JwtPayload(_claims));
 
             string Output = new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
-             
+
 
             return Output;
-            
+
         }
         #endregion
+
+        #region get User by JWT
+        public async Task<UserDataViewModel> GetUserDataByEmail(string Email)
+        {
+           
+
+            // get user data
+            var _userData = await userManager.FindByEmailAsync(Email);
+
+            if (_userData != null)
+            {
+                return new UserDataViewModel
+                {
+                    ApartmentNumber = _userData.ApartmentNumber,
+                    Email = _userData.Email,
+                    FloorNumber = _userData.FloorNumber,
+                    FullName = _userData.FullName,
+                    Id = _userData.Id,
+                    MobileNumber = _userData.MobileNumber,
+                    TowerSection = _userData.TowerSection,
+                    UserName = _userData.UserName
+                };
+            }
+
+            return null;
+
+        }
+
+
+       
+        #endregion
+
+
+
+
 
     }
 }

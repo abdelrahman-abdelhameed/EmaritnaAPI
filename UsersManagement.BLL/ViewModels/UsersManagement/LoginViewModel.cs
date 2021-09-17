@@ -7,10 +7,10 @@ namespace UsersManagement.Bll.ViewModels.UsersManagement
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage ="Email Is Required")]
+        [Required(ErrorMessage ="من فضلك اكتب البريد الالكتروني ")]
         public string UserName { get; set; }
 
-        [Required(ErrorMessage = "Password Is Required")]
+        [Required(ErrorMessage = "من فضلك اكتب كلمة المرور")]
         public string Password { get; set; }
     }
 }

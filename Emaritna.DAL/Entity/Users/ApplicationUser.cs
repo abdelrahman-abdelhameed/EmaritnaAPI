@@ -22,6 +22,8 @@ namespace Emaritna.DAL.Entity.Users
         
         [MaxLength(50)]
         public string MobileNumber { get; set; }
-        
+
+        public bool IsActive { get; set; }
+
     }
 }

@@ -26,7 +26,7 @@ namespace UsersManagement.Bll.Services
 
 
         #region Add new user 
-         
+
         /// <summary>
         /// this method add new security user to system
         /// with required data {FullName - Email - phone number - password - account id }
@@ -34,7 +34,7 @@ namespace UsersManagement.Bll.Services
         /// </summary>
         /// <param name="_DataObj"></param>
         /// <returns></returns>
-        public async Task<ResponseData<string>> AddNewUserBasicData(UserRegisterViewModel _DataObj)
+        public async Task<ResponseData<string>> UserRegistration(UserRegisterViewModel _DataObj)
         {
 
             var ReturnData = new ResponseData<string>();
@@ -45,27 +45,31 @@ namespace UsersManagement.Bll.Services
                 Email = _DataObj.Email,
                 PhoneNumber = _DataObj.PhoneNumber,
                 FullName = _DataObj.FullName,
-               
-                
+                ApartmentNumber = "34b",
+                FloorNumber = 14,
+                IsActive = true,
+                MobileNumber = _DataObj.PhoneNumber,
+                TowerSection = 2
+
             };
 
             // Store user data in AspNetUsers database table
             var result = await userManager.CreateAsync(user, _DataObj.Password);
 
-            
+
 
             if (result.Succeeded)
             {
 
-                if (_DataObj.Roles.Length > 0)
-                {
-                    var _user = await userManager.FindByEmailAsync(_DataObj.Email);
-                    for (int i = 0; i < _DataObj.Roles.Length; i++)
-                    {
-                        var AddRole = await userManager.AddToRoleAsync(_user, _DataObj.Roles[i]);
+                //if (_DataObj.Roles.Length > 0)
+                //{
+                //    var _user = await userManager.FindByEmailAsync(_DataObj.Email);
+                //    for (int i = 0; i < _DataObj.Roles.Length; i++)
+                //    {
+                //        var AddRole = await userManager.AddToRoleAsync(_user, _DataObj.Roles[i]);
 
-                    }
-                }
+                //    }
+                //}
 
                 ReturnData.Success = true;
                 ReturnData.Message = "User Added Successfully";
@@ -84,6 +88,8 @@ namespace UsersManagement.Bll.Services
 
             return ReturnData;
         }
+
+        
 
         #endregion
     }
