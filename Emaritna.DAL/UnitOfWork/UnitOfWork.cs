@@ -1,5 +1,6 @@
 ﻿using Emaritna.DAL.Context;
- using Emaritna.DAL.Entity.Users;
+using Emaritna.DAL.Entity.Announcement;
+using Emaritna.DAL.Entity.Users;
 using Emaritna.DAL.IRepository;
 using Emaritna.DAL.Repository;
 using System;
@@ -12,6 +13,7 @@ namespace Emaritna.DAL.UnitOfWork
     {
         private readonly EmaritnaContext _context;
         private IGenericRepository<ApplicationUser> _ApplicationUserRepository;
+        private IGenericRepository<Announcements> _AnnouncementsRepository;
 
          
         
@@ -31,7 +33,15 @@ namespace Emaritna.DAL.UnitOfWork
         }
 
 
-
+        public IGenericRepository<Announcements> AnnouncementsRepository 
+        {
+            get
+            {
+                return _AnnouncementsRepository ?? (_AnnouncementsRepository
+                  = new GenericRepository<Announcements>(_context));
+            }
+        }
+ 
         public void Save()
         {
             _context.SaveChanges();
