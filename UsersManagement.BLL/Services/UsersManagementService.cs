@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using UsersManagement.Bll.IServices;
+using Emaritna.DAL.IUnitOfWork;
+using System.Linq;
 
 namespace UsersManagement.Bll.Services
 {
@@ -16,10 +18,12 @@ namespace UsersManagement.Bll.Services
         private readonly UserManager<ApplicationUser> userManager;
         #endregion
 
+        private readonly IUnitOfWork unitOfWork;
 
         #region Constarctor
-        public UsersManagementService(UserManager<ApplicationUser> userManager)
+        public UsersManagementService(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
             this.userManager = userManager;
         }
         #endregion
@@ -37,19 +41,18 @@ namespace UsersManagement.Bll.Services
         public async Task<ResponseData<string>> UserRegistration(UserRegisterViewModel _DataObj)
         {
 
+
             var ReturnData = new ResponseData<string>();
 
             var user = new ApplicationUser
             {
                 UserName = _DataObj.Email,
                 Email = _DataObj.Email,
-                PhoneNumber = _DataObj.PhoneNumber,
+                PhoneNumber = _DataObj.MobileNumber,
                 FullName = _DataObj.FullName,
-                ApartmentNumber = "34b",
-                FloorNumber = 14,
                 IsActive = true,
-                MobileNumber = _DataObj.PhoneNumber,
-                TowerSection = 2
+                MobileNumber = _DataObj.MobileNumber,
+                UserType = 1,
 
             };
 
@@ -57,24 +60,23 @@ namespace UsersManagement.Bll.Services
             var result = await userManager.CreateAsync(user, _DataObj.Password);
 
 
-
             if (result.Succeeded)
             {
 
-                //if (_DataObj.Roles.Length > 0)
-                //{
-                //    var _user = await userManager.FindByEmailAsync(_DataObj.Email);
-                //    for (int i = 0; i < _DataObj.Roles.Length; i++)
-                //    {
-                //        var AddRole = await userManager.AddToRoleAsync(_user, _DataObj.Roles[i]);
+                // var _user = await userManager.FindByEmailAsync(_DataObj.Email);
+                // var _userAppertments = new UserApartments
+                // {
+                //     ApartmentNumber = _DataObj.ApartmentNumber,
+                //     FloorNumber = _DataObj.FloorNumber,
+                //     TowerSection = _DataObj.TowerSection,
+                //     UserId = _user.Id,
+                // };
 
-                //    }
-                //}
+                // await unitOfWork.UserApartmentsRepository.Add(_userAppertments);
+                // unitOfWork.Save();
 
                 ReturnData.Success = true;
-                ReturnData.Message = "User Added Successfully";
-                var User = await userManager.FindByEmailAsync(_DataObj.Email);
-                ReturnData.ReturnData = User.Id;
+                ReturnData.Message = "تم التسجيل بنجاح";
                 return ReturnData;
             }
 
@@ -89,7 +91,13 @@ namespace UsersManagement.Bll.Services
             return ReturnData;
         }
 
-        
+
+        // private async Task<bool> ValidateIfThisDataExsist(UserRegisterViewModel _DataObj)
+        // {
+        //     return (await unitOfWork.UserApartmentsRepository.GetWith(a => a.ApartmentNumber.Trim().Equals(_DataObj.ApartmentNumber.Trim())
+        //      && a.FloorNumber == _DataObj.FloorNumber && a.TowerSection == a.TowerSection)).Any();
+        // }
+
 
         #endregion
     }

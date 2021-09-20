@@ -91,7 +91,6 @@ namespace Emaritna.API.Controllers
             if (ModelState.IsValid)
             {
                 return Ok(await usersManagementService.UserRegistration(_DataObj));
-                
             }
             else
             {

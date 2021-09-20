@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emaritna.API", "Emaritna.AP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersManagement.Bll", "UsersManagement.Bll\UsersManagement.Bll.csproj", "{7FD8F2F7-EDE7-493D-AAE3-F60836AFC2B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emaritna.Bll", "Emaritna.Bll\Emaritna.Bll.csproj", "{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{7FD8F2F7-EDE7-493D-AAE3-F60836AFC2B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FD8F2F7-EDE7-493D-AAE3-F60836AFC2B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FD8F2F7-EDE7-493D-AAE3-F60836AFC2B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -154,13 +154,10 @@ namespace UsersManagement.Bll.Services
             {
                 return new UserDataViewModel
                 {
-                    ApartmentNumber = _userData.ApartmentNumber,
                     Email = _userData.Email,
-                    FloorNumber = _userData.FloorNumber,
                     FullName = _userData.FullName,
                     Id = _userData.Id,
                     MobileNumber = _userData.MobileNumber,
-                    TowerSection = _userData.TowerSection,
                     UserName = _userData.UserName
                 };
             }
@@ -171,6 +168,11 @@ namespace UsersManagement.Bll.Services
 
 
        
+        #endregion
+
+        #region   forget password  
+
+
         #endregion
 
 
