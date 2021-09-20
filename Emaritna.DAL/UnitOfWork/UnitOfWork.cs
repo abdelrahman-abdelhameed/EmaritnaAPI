@@ -14,9 +14,10 @@ namespace Emaritna.DAL.UnitOfWork
         private readonly EmaritnaContext _context;
         private IGenericRepository<ApplicationUser> _ApplicationUserRepository;
         private IGenericRepository<Announcements> _AnnouncementsRepository;
+        private IGenericRepository<UserApartments> _UserApartmentsRepository;
 
-         
-        
+
+
 
         public UnitOfWork(EmaritnaContext context)
         {
@@ -33,12 +34,22 @@ namespace Emaritna.DAL.UnitOfWork
         }
 
 
-        public IGenericRepository<Announcements> AnnouncementsRepository 
+        public IGenericRepository<Announcements> AnnouncementsRepository
         {
             get
             {
                 return _AnnouncementsRepository ?? (_AnnouncementsRepository
                   = new GenericRepository<Announcements>(_context));
+            }
+        }
+
+
+        public IGenericRepository<UserApartments> UserApartmentsRepository
+        {
+            get
+            {
+                return _UserApartmentsRepository ?? (_UserApartmentsRepository
+                  = new GenericRepository<UserApartments>(_context));
             }
         }
  
@@ -49,7 +60,7 @@ namespace Emaritna.DAL.UnitOfWork
 
         private bool disposed = false;
 
- 
+
         protected virtual void Dispose(bool disposing)
         {
             if (!this.disposed)

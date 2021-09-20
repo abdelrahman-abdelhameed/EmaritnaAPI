@@ -12,6 +12,7 @@ namespace Emaritna.DAL.IUnitOfWork
 
         IGenericRepository<ApplicationUser> ApplicationUserRepository { get; }
         IGenericRepository<Announcements> AnnouncementsRepository { get; }
+        IGenericRepository<UserApartments> UserApartmentsRepository { get; }
         
         void Save();
 

@@ -1,5 +1,6 @@
 using Emaritna.DAL.BaseEntity;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Emaritna.DAL.Entity.Announcement
 {
@@ -7,7 +8,8 @@ namespace Emaritna.DAL.Entity.Announcement
     {
        
        public string Announcement { get; set; }
-     
+    
+       [MaxLength(100)]
        public string Title { get; set; }
        
        public byte AnnouncmentType { get; set; }
