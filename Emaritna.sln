@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UsersManagement.Bll", "User
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emaritna.Bll", "Emaritna.Bll\Emaritna.Bll.csproj", "{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emaritna.Email", "Emaritna.Email\Emaritna.Email.csproj", "{024A7A3C-FF61-4D95-B6A0-ABA3E326B771}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,7 @@ Global
 		{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DABFD2F1-1CD5-47D1-8163-EF26852A63DF}.Release|Any CPU.Build.0 = Release|Any CPU
+
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
