@@ -8,30 +8,46 @@ namespace UsersManagement.Bll.ViewModels.UsersManagement
     public class UserRegisterViewModel
     {
         [EmailAddress(ErrorMessage = "Please Enter Valid Email Address")]
-        [Required( ErrorMessage = "Email Address is Required")]
+        [Required( ErrorMessage = "من فضلك ادخل البريد الالكتروني ")]
         public string Email { get; set; }
 
 
-        [Required(ErrorMessage = "Full Name  is Required")]
-        [MaxLength(250 , ErrorMessage ="max chars for this input is 250")]
+        [Required(ErrorMessage = "من فضلك اكتب الاسم كامل ")]
+        [MaxLength(250 , ErrorMessage ="عدد الحروف الاقصي ٢٥٠ حرف ")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "Password is Required")]
+        [Required(ErrorMessage = "كلمة المرور مطلوبه ")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
 
-        [Required(ErrorMessage = "Confirm Password is Required")]
+        [Required(ErrorMessage = "من فضلك قم بتاكيد كلمة المرور ")]
         [DataType(DataType.Password)]
         [Compare("Password" ,
-            ErrorMessage = "Password And Confirmation Password don't match")]
+            ErrorMessage = "كلمات المرور غير متطابقه")]
         public string ConfirmPassword { get; set; }
 
-        public long AccountID { get; set; }
 
-        [Required(ErrorMessage = "Phone Number is Required")]
-        public string PhoneNumber { get; set; }
+        [Required(ErrorMessage = "رقم الهاتف مطلوب ")]
+        public string MobileNumber { get; set; }
 
-        public string [] Roles { get; set; }
+
+        // [Required(ErrorMessage = "رقم الشقه مطلوب ")]
+        // public string ApartmentNumber { get; set; }
+
+
+        // [Required(ErrorMessage = " من فضلك ادخل الجانب من البرج")]
+        // public byte TowerSection { get; set; }
+
+
+        // [Required(ErrorMessage = "من فضلك اختر الدور")]
+        // public int FloorNumber { get; set; }
+
+
+
+        
+
+       
+
     }
 }

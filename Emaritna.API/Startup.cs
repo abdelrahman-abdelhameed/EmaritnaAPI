@@ -23,8 +23,9 @@ using System.Text;
 using UsersManagement.Bll.IServices;
 using UsersManagement.Bll.Services;
 using UsersManagement.Bll.DTO;
+using Emaritna.DAL.DTO;
 
-namespace PatientCare.API
+namespace Emaritna.API
 {
     public class Startup
     {
@@ -41,20 +42,20 @@ namespace PatientCare.API
             services.AddControllers();
 
             #region Configer Database 
-            services.AddDbContext<ClinicContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("ClinicConnection")));
+            services.AddDbContext<EmaritnaContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("EmaritnaConnection")));
 
             #endregion
 
             #region Idenity
             services.AddIdentity<ApplicationUser, IdentityRole>().
-                AddEntityFrameworkStores<ClinicContext>();
+                AddEntityFrameworkStores<EmaritnaContext>();
             #endregion
 
             #region Swagger 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Patient Care Api", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Emaritna Api", Version = "v1" });
 
             });
             #endregion
@@ -86,6 +87,8 @@ namespace PatientCare.API
 
             #region Configer app setting from appseting.json to model 
             services.Configure<ApplicationSettingData>(Configuration.GetSection("ApplicationSettingData"));
+            services.Configure<DatabaseSetting>(Configuration.GetSection("ConnectionStrings"));
+
             #endregion
 
             string JWTKey = Configuration.GetSection("ApplicationSettingData").GetSection("JwtToken").Value;
@@ -108,7 +111,17 @@ namespace PatientCare.API
                 };
 
             });
+
+
+          //  services.AddAuthorization();
             #endregion
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200")
+                       .AllowAnyMethod().AllowAnyHeader());
+            });
 
         }
 
@@ -123,19 +136,21 @@ namespace PatientCare.API
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Patient Care Api");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Emaritna Api");
             });
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-           
 
+            app.UseCors("AllowSpecificOrigin");
             app.UseRouting();
 
-            app.UseAuthorization();
+            
             app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -144,7 +159,7 @@ namespace PatientCare.API
             #region Sure Of Data base 
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<ClinicContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<EmaritnaContext>();
                 context.Database.Migrate();
             }
 

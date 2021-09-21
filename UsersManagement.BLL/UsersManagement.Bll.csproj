@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Utilities\" />
+    <Folder Include="ViewModels\Authentication\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,4 +30,7 @@
     <ProjectReference Include="..\Emaritna.DAL\Emaritna.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="ViewModels\Authentication\" />
+  </ItemGroup>
 </Project>

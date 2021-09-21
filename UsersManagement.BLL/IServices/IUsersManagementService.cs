@@ -10,7 +10,7 @@ namespace UsersManagement.Bll.IServices
     public interface IUsersManagementService
     {
 
-        Task<ResponseData<string>> AddNewUserBasicData(UserRegisterViewModel _DataObj);
+        Task<ResponseData<string>> UserRegistration(UserRegisterViewModel _DataObj);
 
     }
 }

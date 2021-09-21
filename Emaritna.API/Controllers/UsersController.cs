@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UsersManagement.Bll.DTO;
 using UsersManagement.Bll.IServices;
+using UsersManagement.Bll.ViewModels.Authentication;
 using UsersManagement.Bll.ViewModels.UsersManagement;
 
 namespace Emaritna.API.Controllers
@@ -49,7 +50,7 @@ namespace Emaritna.API.Controllers
         /// <param name="_DataObj"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("Login")]
+        [Route("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel _DataObj)
         {
@@ -57,19 +58,13 @@ namespace Emaritna.API.Controllers
             if (ModelState.IsValid)
             {
                 var checkLogin = await _userAuthenticationService.Login(_DataObj);
-                if (checkLogin.ISSuccessful)
-                {
-                    return Ok(checkLogin);
-                }
-                else
-                {
-                      
-                    return BadRequest(checkLogin);
-                }
+                
+                   return Ok(checkLogin);
+                   
             }
             else
             {
-                var Data = new LoginResponseData();
+                var Data = new AuthenticationViewmodel();
                 foreach (var state in ModelState)
                 {
                     foreach (var error in state.Value.Errors)
@@ -81,30 +76,21 @@ namespace Emaritna.API.Controllers
                 var msg = new HttpResponseMessage() { ReasonPhrase = Data.ErrorMessage };
                 return BadRequest(msg);
             }
-
-           
+ 
         }
         #endregion
 
 
         #region Add New User Basic Data
         [HttpPost]
-        [Route("AddNewUserBasicData")]
-        public async Task<IActionResult> AddNewUserBasicData(UserRegisterViewModel _DataObj)
+        [Route("registration")]
+        [AllowAnonymous]
+        public async Task<IActionResult> Registration(UserRegisterViewModel _DataObj)
         {
 
             if (ModelState.IsValid)
             {
-                var AddUser = await usersManagementService.AddNewUserBasicData(_DataObj);
-                if (AddUser.Success)
-                {
-                    return Ok(AddUser);
-                }
-                else
-                {
-
-                    return BadRequest(AddUser);
-                }
+                return Ok(await usersManagementService.UserRegistration(_DataObj));
             }
             else
             {
@@ -118,12 +104,44 @@ namespace Emaritna.API.Controllers
                     }
                 }
 
-              
                 return BadRequest(Data);
             }
 
 
         }
         #endregion
+
+
+        #region Add New User Basic Data
+        [HttpGet]
+        [Route("me")]
+        [Authorize]
+        public async Task<IActionResult> GetUserByJWT()
+        {
+             
+            if (ModelState.IsValid)
+            {
+                return Ok(await _userAuthenticationService.GetUserDataByEmail(User.Identity.Name));
+            }
+            else
+            {
+                var Data = new ResponseData<string>();
+                Data.Success = false;
+                foreach (var state in ModelState)
+                {
+                    foreach (var error in state.Value.Errors)
+                    {
+                        Data.Message += error.ErrorMessage + "/n";
+                    }
+                }
+
+                return BadRequest(Data);
+            }
+
+
+        }
+        #endregion
+
+
     }
 }
