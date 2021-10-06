@@ -1,10 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Emaritna.DAL\Emaritna.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Announcement\Delete\Command" />
+    <Folder Include="Announcement\Delete\Handler" />
+    <Folder Include="Announcement\Edit\Command" />
+    <Folder Include="Announcement\Edit\Handler" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 </Project>

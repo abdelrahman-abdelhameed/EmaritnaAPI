@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Emaritna.Bll.ViewModels.Base;
 
 
@@ -6,6 +7,7 @@ namespace Emaritna.Bll.ViewModels.Announcement
 {
     public class AnnouncementViewModel : BaseViewModel<long>
     {
+        [Required]
         public string Announcement { get; set; }
 
         [MaxLength(100)]

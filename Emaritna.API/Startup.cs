@@ -24,6 +24,7 @@ using UsersManagement.Bll.IServices;
 using UsersManagement.Bll.Services;
 using UsersManagement.Bll.DTO;
 using Emaritna.DAL.DTO;
+using MediatR;
 
 namespace Emaritna.API
 {
@@ -91,7 +92,13 @@ namespace Emaritna.API
 
             #endregion
 
-            string JWTKey = Configuration.GetSection("ApplicationSettingData").GetSection("JwtToken").Value;
+
+           
+
+            
+
+            
+            string jwtKey = Configuration.GetSection("ApplicationSettingData").GetSection("JwtToken").Value;
             #region JWT setting 
             services.AddAuthentication(options =>
             {
@@ -103,7 +110,7 @@ namespace Emaritna.API
                 JwtBearerOptions.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JWTKey)),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey)),
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = true,
@@ -123,9 +130,14 @@ namespace Emaritna.API
                        .AllowAnyMethod().AllowAnyHeader());
             });
 
+
+            //services.AddMediatR(typeof(Startup));
+           // services.AddMediatR(AppDomain.CurrentDomain.GetAssemblies());
+           var assembly = AppDomain.CurrentDomain.Load("Emaritna.Bll");
+           services.AddMediatR(assembly);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.                     
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 

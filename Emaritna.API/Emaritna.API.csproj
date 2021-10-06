@@ -13,6 +13,8 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Emaritna.API' " />
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.1">
@@ -29,6 +31,13 @@
   <ItemGroup>
       <ProjectReference Include="..\Emaritna.DAL\Emaritna.DAL.csproj" />
      <ProjectReference Include="..\UsersManagement.BLL\UsersManagement.Bll.csproj" />
+     <ProjectReference Include="..\Emaritna.Bll\Emaritna.Bll.csproj">
+       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="mono_crash.11a67480d0.0.json" />
   </ItemGroup>
 
 

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Design;
 using Emaritna.DAL.DTO;
+using Emaritna.DAL.Entity.Announcement;
 using Microsoft.Extensions.Options;
 
 namespace Emaritna.DAL.Context
@@ -25,6 +26,8 @@ namespace Emaritna.DAL.Context
             
             base.OnModelCreating(modelBuilder);
         }
+        
+        public DbSet<Announcements> Announcements { get; set; }
 
     }
 
@@ -40,5 +43,7 @@ namespace Emaritna.DAL.Context
             builder.UseSqlServer(connectionString);
             return new EmaritnaContext(builder.Options);
         }
+
+       
     }
 }
