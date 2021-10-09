@@ -6,7 +6,7 @@ using Emaritna.Bll.ViewModels.Announcement;
 
 namespace Emaritna.Bll.Announcements.List
 {
-    public class Query : IRequest<List<AnnouncementViewModel>>
+    public class Query : IRequest<AnnouncementListViewModel>
     {
         public byte Type { get;  }
 

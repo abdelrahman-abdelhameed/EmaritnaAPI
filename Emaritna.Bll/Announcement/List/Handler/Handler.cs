@@ -10,7 +10,7 @@ using Emaritna.DAL.IUnitOfWork;
 
 namespace Emaritna.Bll.Announcement.List
 {
-    public class Handler : IRequestHandler<Query , List<AnnouncementViewModel> >
+    public class Handler : IRequestHandler<Query , AnnouncementListViewModel >
     {
         private readonly IUnitOfWork _unitOfWork;
 
@@ -19,10 +19,10 @@ namespace Emaritna.Bll.Announcement.List
             _unitOfWork = unitOfWork;
         }
         
-        public async Task<List<AnnouncementViewModel>> Handle(Query request, CancellationToken cancellationToken)
+        public async Task<AnnouncementListViewModel> Handle(Query request, CancellationToken cancellationToken)
         {
-            var data = (await _unitOfWork.AnnouncementsRepository.GetWith(filter: a => a.IsActive == true && a.AnnouncmentType == request.Type
-                                                                                                          && (!a.ExpirationDate.HasValue || a.ExpirationDate >= DateTime.Now)))
+            var data = (await _unitOfWork.AnnouncementsRepository.GetWith(filter: a => a.IsActive == true &&
+                    a.AnnouncmentType == request.Type && (!a.ExpirationDate.HasValue || a.ExpirationDate >= DateTime.Now)))
                 .OrderByDescending(keySelector: a => a.ID).Skip(count: (request.CurrentPage - 1) * request.PageSize).Take(count: request.PageSize).Select(selector: a => new
                     AnnouncementViewModel
                     {
@@ -34,11 +34,23 @@ namespace Emaritna.Bll.Announcement.List
                         IsActive = a.IsActive,
                         IsPoster = a.IsPoster,
                         ShowDays = a.ShowDays,
-                        Title = a.Title
+                        Title = a.Title,
+                        AddedDate = a.CreateAt.ToShortDateString()
 
                     }).ToList();
 
-            return data;
+            var _result = new AnnouncementListViewModel
+            { 
+                AnnouncementsList = data,
+                PageSize = request.PageSize,
+                CurrentPage = request.CurrentPage,
+                Count = (await _unitOfWork.AnnouncementsRepository.GetWith(filter: a => a.IsActive == true &&
+                        a.AnnouncmentType == request.Type && (!a.ExpirationDate.HasValue || a.ExpirationDate >= DateTime.Now))).Count(),
+                
+                
+            };
+            
+            return _result;
         }
     }
 }

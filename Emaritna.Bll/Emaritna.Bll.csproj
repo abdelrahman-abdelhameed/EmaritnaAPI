@@ -9,14 +9,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Announcement\Delete\Command" />
-    <Folder Include="Announcement\Delete\Handler" />
-    <Folder Include="Announcement\Edit\Command" />
-    <Folder Include="Announcement\Edit\Handler" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MediatR" Version="9.0.0" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <Folder Include="Announcement\GetById\Query" />
   </ItemGroup>
 </Project>

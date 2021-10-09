@@ -20,5 +20,7 @@ namespace Emaritna.Bll.ViewModels.Announcement
         public Nullable<int> ShowDays { get; set; }
 
         public Nullable<DateTime> ExpirationDate { get; set; }
+
+        public string  AddedDate { get; set; }
     }
 }
