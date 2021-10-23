@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Emaritna.Bll.Logger;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,15 +22,19 @@ namespace Emaritna.API.Controllers
 
         #region injected Objects
         private readonly IUserAuthenticationService _userAuthenticationService;
-        private readonly IUsersManagementService usersManagementService;
+        private readonly IUsersManagementService _usersManagementService;
+        private readonly ILoggerService<UserApartmentController> _logger;
+
         #endregion
 
         #region Constractor
         public UsersController(IUserAuthenticationService userAuthenticationService,
-            IUsersManagementService usersManagementService)
+            IUsersManagementService usersManagementService,
+            ILoggerService<UserApartmentController> _logger)
         {
             this._userAuthenticationService = userAuthenticationService;
-            this.usersManagementService = usersManagementService;
+            this._usersManagementService = usersManagementService;
+            this._logger = _logger;
         }
         #endregion
 
@@ -74,6 +79,7 @@ namespace Emaritna.API.Controllers
                 }
 
                 var msg = new HttpResponseMessage() { ReasonPhrase = Data.ErrorMessage };
+                _logger.LogErrorData(Data.ErrorMessage);
                 return BadRequest(msg);
             }
  
@@ -90,7 +96,7 @@ namespace Emaritna.API.Controllers
 
             if (ModelState.IsValid)
             {
-                return Ok(await usersManagementService.UserRegistration(_DataObj));
+                return Ok(await _usersManagementService.UserRegistration(_DataObj));
             }
             else
             {
@@ -103,7 +109,7 @@ namespace Emaritna.API.Controllers
                         Data.Message += error.ErrorMessage + "/n";
                     }
                 }
-
+                _logger.LogErrorData(Data.Message);
                 return BadRequest(Data);
             }
 
@@ -112,7 +118,7 @@ namespace Emaritna.API.Controllers
         #endregion
 
 
-        #region Add New User Basic Data
+        #region get current user data 
         [HttpGet]
         [Route("me")]
         [Authorize]
@@ -125,17 +131,17 @@ namespace Emaritna.API.Controllers
             }
             else
             {
-                var Data = new ResponseData<string>();
-                Data.Success = false;
+                var data = new ResponseData<string>();
+                data.Success = false;
                 foreach (var state in ModelState)
                 {
                     foreach (var error in state.Value.Errors)
                     {
-                        Data.Message += error.ErrorMessage + "/n";
+                        data.Message += error.ErrorMessage + "/n";
                     }
                 }
-
-                return BadRequest(Data);
+                _logger.LogErrorData(data.Message);
+                return BadRequest(data);
             }
 
 

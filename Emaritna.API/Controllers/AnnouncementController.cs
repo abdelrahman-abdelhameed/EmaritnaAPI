@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Emaritna.Bll.Announcements.List;
+using Emaritna.Bll.Logger;
 using Emaritna.Bll.ViewModels.Announcement;
 using create = Emaritna.Bll.Announcement.Create;
 using edit = Emaritna.Bll.Announcement.Edit;
@@ -18,11 +19,13 @@ namespace Emaritna.API.Controllers
     public class AnnouncementController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly ILoggerService<UserApartmentController> _logger;
 
 
-        public AnnouncementController(IMediator mediator)
+        public AnnouncementController(IMediator mediator, ILoggerService<UserApartmentController> _logger)
         {
             _mediator = mediator;
+            this._logger = _logger;
         }
 
 
@@ -30,30 +33,44 @@ namespace Emaritna.API.Controllers
 
         [HttpGet]
         [Route("list")]
-       
-        public async Task<IActionResult> GetAllAnnouncementPaging(byte type,int currentPage = 1, int pageSize = 10)
+        public async Task<IActionResult> GetAllAnnouncementPaging(byte type, int currentPage = 1, int pageSize = 10)
         {
-            var query = new Query(type, currentPage, pageSize);
+            try
+            {
+                var query = new Query(type, currentPage, pageSize);
 
-            var result = await _mediator.Send(query);
+                var result = await _mediator.Send(query);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                _logger.LogErrorData(e?.Message);
+                return BadRequest(e);
+            }
         }
 
         #endregion
-        
+
         #region get all Announcement
 
         [HttpGet]
         [Route("get-by-id")]
-       
         public async Task<IActionResult> GetById(long Id)
         {
-            var query = new getById.Query(Id);
+            try
+            {
+                var query = new getById.Query(Id);
 
-            var result = await _mediator.Send(query);
+                var result = await _mediator.Send(query);
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                _logger.LogErrorData(e?.Message);
+                return BadRequest(e);
+            }
         }
 
         #endregion
@@ -63,13 +80,20 @@ namespace Emaritna.API.Controllers
 
         [HttpPost]
         [Route("creat")]
-       
         public async Task<IActionResult> Create(AnnouncementViewModel dataObj)
         {
-            var command = new create.Command(dataObj.Announcement, dataObj.Title,
-                dataObj.AnnouncmentType, dataObj.IsPoster, dataObj.ShowDays, dataObj.ExpirationDate);
-            await _mediator.Send(command);
-            return Ok();
+            try
+            {
+                var command = new create.Command(dataObj.Announcement, dataObj.Title,
+                    dataObj.AnnouncmentType, dataObj.IsPoster, dataObj.ShowDays, dataObj.ExpirationDate);
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogErrorData(e?.Message);
+                return BadRequest(e);
+            }
         }
 
         #endregion
@@ -79,15 +103,22 @@ namespace Emaritna.API.Controllers
 
         [HttpPost]
         [Route("update")]
-       
         public async Task<IActionResult> Edit(AnnouncementViewModel dataObj)
         {
-            var command = new edit.Command(dataObj.ID, dataObj.Announcement, dataObj.Title, dataObj.AnnouncmentType,
-                dataObj.IsPoster,
-                dataObj.ShowDays, dataObj.ExpirationDate);
+            try
+            {
+                var command = new edit.Command(dataObj.ID, dataObj.Announcement, dataObj.Title, dataObj.AnnouncmentType,
+                    dataObj.IsPoster,
+                    dataObj.ShowDays, dataObj.ExpirationDate);
 
-            await _mediator.Send(command);
-            return Ok();
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogErrorData(e?.Message);
+                return BadRequest(e);
+            }
         }
 
         #endregion
@@ -99,10 +130,18 @@ namespace Emaritna.API.Controllers
         [Route("delete")]
         public async Task<IActionResult> Delete(long ID)
         {
-            var command = new delete.Command(ID);
+            try
+            {
+                var command = new delete.Command(ID);
 
-            await _mediator.Send(command);
-            return Ok();
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogErrorData(e?.Message);
+                return BadRequest(e);
+            }
         }
 
         #endregion

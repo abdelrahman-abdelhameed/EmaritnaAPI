@@ -19,7 +19,8 @@ using Emaritna.DAL.UnitOfWork;
 using AutoMapper;
  using Microsoft.IdentityModel.Tokens;
 using System.Text;
- using UsersManagement.Bll.Mapper;
+using Emaritna.Bll.Logger;
+using UsersManagement.Bll.Mapper;
 using UsersManagement.Bll.IServices;
 using UsersManagement.Bll.Services;
 using UsersManagement.Bll.DTO;
@@ -70,6 +71,7 @@ namespace Emaritna.API
             services.AddScoped<IUserAuthenticationService, UserAuthenticationService>();
             services.AddScoped<IUserClaimsService, UserClaimsService>();
             services.AddScoped<IUsersManagementService, UsersManagementService>();
+            services.AddScoped(typeof(ILoggerService<>), typeof(LoggerService<>));
             #endregion
 
             #region Auto Mapper
