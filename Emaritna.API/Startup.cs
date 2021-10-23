@@ -155,13 +155,15 @@ namespace Emaritna.API
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseCors("AllowSpecificOrigin");
+            
             app.UseRouting();
 
-            
+            app.UseCors("AllowSpecificOrigin");
             app.UseAuthentication();
             app.UseAuthorization();
+            
+          
+           
 
             app.UseEndpoints(endpoints =>
             {

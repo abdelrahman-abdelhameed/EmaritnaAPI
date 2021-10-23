@@ -26,10 +26,11 @@ namespace Emaritna.Bll.Announcement.Create
                 AnnouncmentType = request.AnnouncmentType,
                 ExpirationDate = request.ShowDays.HasValue
                     ? DateTime.Now.AddDays((double) request.ShowDays)
-                    : request.ExpirationDate,
+                    : (DateTime?) null,
                 IsPoster = request.IsPoster,
                 ShowDays = request.ShowDays,
                 Title = request.Title,
+                IsActive = true,
             };
 
             await _unitOfWork.AnnouncementsRepository.Add(announcementData);
